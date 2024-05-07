@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+  <div class="container">
+    <h2>ZALOGUJ SIĘ</h2><br>
+
+        {% if error %}
+      <div class="alert alert-danger">
+        {{ error }}<br>
+      </div>
+    {% endif %}
+    {% if next %}
+      <div class="alert alert-warning">
+        {{ next }}<br>
+      </div>
+    {% endif %}
+    <form method="POST">
+      {% csrf_token %}
+      Nazwa użytkownika:<br>
+      <input type="" name="username"><br><br>
+      Hasło:<br>
+      <input type="password" name="password"><br><br>
+      {% if nextURL %}
+        <input type="hidden" name="redir" value="{{ nextURL }}">
+      {% endif %}
+      <input class="btn btn-primary" type="submit" value="Zaloguj" style="background-color: #B4779A; border-color: #B4779A">
+    </form>
+  </div>
+{% endblock %}

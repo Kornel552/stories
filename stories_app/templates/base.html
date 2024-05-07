@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+   integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+ <style>
+   .side-bar {
+     background-color: #C6E3FE;
+     min-height: 100vh;
+   }
+   .left-bar {
+     box-shadow: inset -10px 0 15px -10px rgba(0,0,0,0.5); /* Cień wewnętrzny z prawej strony */
+   }
+   .right-bar {
+     box-shadow: inset 10px 0 15px -10px rgba(0,0,0,0.5); /* Cień wewnętrzny z lewej strony */
+   }
+  .navbar {
+    background-image: url("{% static 'jpg/-ballon.png' %}");
+    background-size: cover;
+    background-position: center;
+   }
+   @media (max-width: 992px) {
+     .side-bar {
+       display: none;
+     }
+   }
+ </style>
+</head>
+<body>
+
+ <div class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+   <a class="navbar-brand" href="{% url 'home' %}">logo</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+
+   <div class="collapse navbar-collapse" id="navbarContent">
+     <div class="navbar-nav ml-auto">
+       &nbsp;<a class="btn btn-secondary" href="{% url 'home' %}" style="background-color: #c8cacb; border-color: #c8cacb">HOME</a> &nbsp;
+       {% if user.is_authenticated %}
+         <a class="btn btn-danger" href="JavaScript:{document.getElementById('logout').submit()}"
+         style="background-color: #E24151; border-color: #E24151">Wyloguj się</a>
+       {% else %}
+         <a class="btn btn-secondary" href="{% url 'signup_page' %}" style="background-color: #9184D2; border-color: #9184D2">Zarejestruj się</a>&nbsp;
+         <a class="btn btn-secondary" href="{% url 'login_page' %}" style="background-color: #B4779A; border-color: #B4779A">Zaloguj się</a>
+       {% endif %}
+     </div>
+   </div>
+</div>
+{% if user.is_authenticated %}
+  <form id="logout" method="POST" action="{% url 'logout_page' %}">
+    {% csrf_token %}
+    <input type="hidden">
+  </form>
+{% endif %}
+
+
+ <div class="container-fluid">
+   <div class="row">
+     <div class="col-12 col-md-1 side-bar left-bar"></div> <!-- Lewe tło z wewnętrznym cieniem -->
+     <div class="col-12 col-md-10 overlay">
+       <!-- Treść główna -->
+       {% block content %}
+       {% endblock %}
+     </div>
+     <div class="col-12 col-md-1 side-bar right-bar"></div> <!-- Prawe tło z wewnętrznym cieniem -->
+   </div>
+ </div>
+</body>
+</html>
+
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoSeROsbfzLWIL7PPiMZMX0M4x7ZusDQCVEdpZDl7C8hBg6JJKO8SB5h+kl5s2" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

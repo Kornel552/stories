@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stories</title>
+    <!-- Dodaj link do Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<style>
+    .card {
+        width: 21rem;
+        height: 15rem;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0);
+    }
+
+    .card-img-top {
+        height: 60%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding-top: 1px;
+    }
+
+    .max {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        padding: 2px;
+    }
+
+    .max1 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 300px;
+    }
+
+    .bookmark {
+        position: absolute;
+        top: 0px;
+        right: 17px;
+        width: 51px;
+        height: 60px;
+        background-color: #5E6681;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+    }
+
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: black;
+        border-radius: 50%;
+        padding: 10px;
+    }
+</style>
+
+<br>
+<a class="btn btn-outline-primary" href="{% url 'write_story' %}">WRITE<br>STORY</a>
+<a class="btn btn-outline-primary" href="{% url 'all_stories' %}">ALL<br>STORIES</a>
+<a class="btn btn-outline-primary" href="{% url 'contact' %}">CONTACT<br>US</a>
+<br><br>
+
+<div class="row" style="margin: 10px;">
+    <div class="col-lg-7 col-md-12" style="line-height: 3;">
+                Dwelling and speedily ignorant any steepest. Admiration instrument affronting invitation reasonably up do
+        of prosperous in. Shy saw declared age debating ecstatic man. Call in so want pure rank am dear were.
+        Remarkably to continuing in surrounded diminution on. In unfeeling existence objection immediate repulsive
+        on he in. Imprudence comparison uncommonly me he difficulty diminution resolution. Likewise proposal
+        differed scarcely dwelling as on raillery. September few dependent extremity own continued and ten prevailed
+        attending. Early to weeks we could.<br><br>
+    </div>
+
+    <div class="col-lg-5 col-md-12">
+        <div class="line" style="border-left: 10px solid; color: #5E6681;">
+            <div class="jumbotron" style="background-color: #5E6681; margin-left: 5px; box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.1);">
+                <h1 class="display-5" style="color: white;">Hello, world!</h1>
+                <p class="lead" style="color: white;">This is a simple hero unit...</p>
+                <a class="btn btn-secondary btn-lg" href="#" role="button" style="background-color: #c8cacb; border-color: #c8cacb">Learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br>
+<h3 style="margin: 25px;">Najbardziej popularne:</h3>
+<div class="container mt-5">
+    <div id="likedStoriesCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Wskaźniki -->
+        <ol class="carousel-indicators">
+            {% for post in liked_stories %}
+                <li data-bs-target="#likedStoriesCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+
+        <!-- Slajdy -->
+        <div class="carousel-inner">
+            {% for post in liked_stories %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div style="padding: 20px;">
+                        <a href="{% url 'story' post.id %}" style="color: black; text-decoration: none;">
+                            <div class="card mx-auto" style="width: 50%;">
+                                <div class="bookmark" style="text-align: center; box-shadow: inset 0px 0px 27px -16px rgba(66, 68, 90, 1);">
+                                    <div style="margin-top: 0px; color: #d4df00;">
+                                        <strong>
+                                            <i class="bi bi-star-fill" style="color: #d4df00; font-size: 15px;"></i>
+                                            <div style="margin-top: 0px;">{{ post.likes.count }}</div>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <img class="card-img-top" src="{{ post.picture.url }}" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title max"><strong>{{ post.topic }}</strong></h5>
+                                    <p class="card-text max1">Autor: {{ post.user.first_name }} {{ post.user.last_name }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Sterowanie -->
+        <a class="carousel-control-prev" href="#likedStoriesCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Poprzedni</span>
+        </a>
+        <a class="carousel-control-next" href="#likedStoriesCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Następny</span>
+        </a>
+    </div>
+</div>
+<br><br><br>
+
+<div style="box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.1); margin: 25px; border-radius: 20px;">
+    <div class="vl" style="border-left: 10px solid; color: #5E6681; margin-left: 18px;">
+        <div style="margin: 30px;">
+            <br>
+            <a>This is some text within a card body. Early to weeks we could. Effects present letters
+                inquiry no an removed or friends. Desire behind latter me though in. Supposing shameless am he engrossed up
+                additions. My possible peculiar together to. Desire so better am cannot he up before points. Remember mistaken
+                opinions it pleasure of debating. Court front maids forty if aware their at.</a>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+<!-- Dodaj skrypty Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+{% endblock %}

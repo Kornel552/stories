@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+
+    .story-image {
+        width: 100%; /* ensures responsiveness */
+        max-width: 400px; /* maximum width */
+        margin-left: auto; /* centers the image horizontally */
+        margin-right: auto; /* centers the image horizontally */
+        display: block; /* ensures the image does not have inline properties */
+    }
+
+      /* Media query for small screens */
+   @media (max-width: 768px) {
+       .row {
+           flex-direction: column; /* stacks the flex items vertically */
+       }
+       .col {
+           width: 100%; /* full width for each column */
+           padding: 10px; /* reduced padding for smaller screens */
+           text-align: center; /* centers the text */
+       }
+   }
+</style>
+
+<div style="padding: 40px;">
+    <hr>
+    <h2 style="text-align: center;">{{ story.topic }}</h2>
+    <hr><br><br>
+    <div class="row">
+        <div class="col" style="padding-top: 62px;"><h5>Autor: {{ story.user.first_name }} {{ story.user.last_name }}</h5></div>
+
+        <div class="col">
+            <div class="row justify-content-center">
+                <form action="" method="POST" style="display: flex; align-items: center; justify-content: center;">
+                    {% csrf_token %}
+
+                    {% if msg %}
+                    <button style="background: none; border: none; margin-bottom: 30px;">
+                        <i class="bi bi-star-fill" style="color: #d4df00; font-size: 60px;"></i>
+                    </button>
+                    {% else %}
+                    <button style="background: none; border: none; margin-bottom: 30px;">
+                        <i class="bi bi-star" style="color: #d4df00; font-size: 60px;"></i>
+                    </button>
+                    {% endif %}
+                    <h4 class="num-of-likes" style="margin-left: 10px; font-size: 60px; color: #d4df00;">{{ story.likes.count }}</h4>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <img src="{{ story.picture.url }}" alt="{{ story.topic }}" class="story-image">
+    <div class="story-content" style="text-align: -;"><br><br>
+        {{ story.content|safe }}
+    </div>
+</div>
+{% endblock %}
