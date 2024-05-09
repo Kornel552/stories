@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br><br>
+<div class="justify-content-center text-center">
+<h2>Czy na pewno chcesz usunąć tę historię?</h2>
+<p><strong>{{ story.title }}</strong></p>
+<form method="POST">
+    {% csrf_token %}
+    <br>
+    <button type="submit" class="btn btn-danger">Tak, usuń</button>
+    <a href="{% url 'all_stories' %}" class="btn btn-secondary">Anuluj</a>
+</form>
+</div>
+{% endblock %}

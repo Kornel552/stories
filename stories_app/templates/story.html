@@ -23,13 +23,17 @@
        }
    }
 </style>
-
+{% if request.user.is_staff %}
+<br>
+<a class="btn btn-outline-primary" href="{% url 'edit' item_id=story.id %}">EDYTUJ<br>OPOWIADANIE</a>
+{% endif %}
 <div style="padding: 40px;">
     <hr>
     <h2 style="text-align: center;">{{ story.topic }}</h2>
     <hr><br><br>
     <div class="row">
-        <div class="col" style="padding-top: 62px;"><h5>Autor: {{ story.user.first_name }} {{ story.user.last_name }}</h5></div>
+        <div class="col" style="padding-top: 30px;"><h5>Autor: {{ story.user.first_name }} {{ story.user.last_name }}</h5>
+        Data utworzenia: {{ story.date|date:"d M Y" }}</div>
 
         <div class="col">
             <div class="row justify-content-center">
