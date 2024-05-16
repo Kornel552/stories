@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.urls import reverse
-from django.conf import settings
 from django.core.mail import send_mail
 
 def signup_page(request):
@@ -92,9 +91,7 @@ def all_stories(request):
     posts = Story.objects.all().order_by('-date')
     a = Story.objects.values_list('date', flat=True)
     b = Story.objects.values_list('topic', flat=True)
-    print(a, b)
     return render(request, 'all_stories.html', {'posts': posts})
-
 
 def story(request, item_id):
     story = get_object_or_404(Story, pk=item_id)
@@ -163,7 +160,7 @@ def contact(request):
                     f"Message from <{form.cleaned_data['email']}>\n\n"
                     f"{form.cleaned_data['message']}",  # message
                     None,  # from email
-                    ['pimoxa2759@godsigma.com'],  # replace with your email
+                    ['pimoxa2759@godsigma.com'],  # do zmiany -> gdzie email ma przyjść
                 )
                 return render(request, 'contact_us_success.html')
             except:

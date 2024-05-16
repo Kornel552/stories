@@ -10,7 +10,7 @@ class Story(models.Model):
     date = models.DateTimeField(auto_now=True)
     picture = models.ImageField(upload_to='media')
     content = CKEditor5Field(config_name='extends', blank=True)
-    likes = models.ManyToManyField(User, related_name='post')
+    likes = models.ManyToManyField(User, related_name='post', blank=True)
 
     def __str__(self):
         return self.topic

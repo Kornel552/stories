@@ -128,7 +128,7 @@ LOGIN_URL = '/login'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR) # zalecane jest również używanie osobnego folderu dla MEDIA_ROOT
+MEDIA_ROOT = os.path.join(BASE_DIR)     # zalecane jest również używanie osobnego folderu dla MEDIA_ROOT
 STATIC_ROOT = os.path.join(BASE_DIR, 'media')
 
 
@@ -138,7 +138,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'), # Tworzenie dedykowanego folderu dla niestandardowych plików statycznych
+    os.path.join(BASE_DIR, 'static'),   # Tworzenie dedykowanego folderu dla niestandardowych plików statycznych
 ]
 
 customColorPalette = [
@@ -150,7 +150,7 @@ customColorPalette = [
       {'color': 'hsl(207, 90%, 54%)', 'label': 'Blue'},
   ]
 
-CKEDITOR_5_FILE_STORAGE = "stories_app.storage.CustomStorage" # optional
+CKEDITOR_5_FILE_STORAGE = "stories_app.storage.CustomStorage"   # optional
 CKEDITOR_5_CONFIGS = {
   'default': {
       'toolbar': ['heading', '|', 'bold', 'italic', 'link',
@@ -195,12 +195,12 @@ CKEDITOR_5_CONFIGS = {
               'backgroundColors': customColorPalette
           }
       },
-      'heading' : {
+      'heading': {
           'options': [
-              { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
-              { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
-              { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
-              { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
+              {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+              {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+              {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+              {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
           ]
       }
   },
