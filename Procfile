@@ -1,1 +1,1 @@
-web: yarn start:production
+web: gunicorn example_django.wsgi
