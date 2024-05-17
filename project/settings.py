@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-9h%%0hfywti-7@e)xybs@+6lh@pun#amr=dhjqp7m&3%!$cvqf
 DEBUG = False
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'golden-miguelita-storytell-ec5f53ba.koyeb.app']
 
 
 # Application definition
