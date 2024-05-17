@@ -3,73 +3,67 @@
 {% load static %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style>
- .card {
-   width: 21rem; /* Szerokość karty */
-   height: 15rem; /* Wysokość karty */
-   border-radius: 20px;
-   overflow: hidden; /* Ukrywa nadmierną treść */
-   position: relative; /* Umożliwia pozycjonowanie pseudoelementów */
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0);
+.card {
+  width: 21rem; /* Zachowaj stałą szerokość karty */
+  height: 15rem; /* Stała wysokość karty */
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0);
+  margin-bottom: 20px; /* Dodaje odstęp na dole każdej karty */
 }
 
 .card-img-top {
-   height: 60%; /* Wysokość obrazka to 4/5 wysokości karty */
-   width: 100%; /* Szerokość obrazka dopasowuje się do szerokości karty */
-   object-fit: cover; /* Zapewnia, że obrazek będzie odpowiednio przycięty i dopasowany */
-}
-.card-body {
-   padding-top: 1px; /* Dodanie paddingu wewnątrz karty */
+  width: 100%;
+  height: 60%; /* Zdefiniowane wysokości obrazka w karcie */
+  object-fit: cover;
 }
 
-.max {
-   display: -webkit-box;
-   -webkit-box-orient: vertical;
-   -webkit-line-clamp: 2;  /* Number of lines displayed before it truncate */
-   overflow: hidden;
-   padding: 2px;
-}
-
-.max1 {
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   max-width: 300px;
+@media (max-width: 576px) {
+  .container {
+    padding: 0 10px; /* Minimalny padding kontenera na małych ekranach */
+  }
+  .card {
+    width: 90%; /* Lepsze dopasowanie karty do małych ekranów */
+    margin: 10px auto; /* Wyśrodkowanie karty na małych ekranach z zachowaniem odstępów */
+  }
 }
 
 .bookmark {
-   position: absolute;
-   top: 0px;
-   right: 17px;
-   width: 51px;
-   height: 60px;
-   background-color: #5E6681;
-   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+  position: absolute;
+  top: 0;
+  right: 17px;
+  width: 51px;
+  height: 60px;
+  background-color: #5E6681;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+  z-index: 2; /* Aby była widoczna nad innymi elementami */
 }
 </style>
 
-
 <div class="container">
-   <div class="row">
-       {% for post in posts %}
-       <div style="padding: 20px;">
-         <a href="{% url 'story' post.id %}" style="color: black; text-decoration: none;">
-         <div class="card">
-             <div class="bookmark" style="text-align: center; box-shadow: inset 0px 0px 27px -16px rgba(66, 68, 90, 1);">
-                 <div style="margin-top: 0px; color: #d4df00;"><strong><i class="bi bi-star-fill" style="color: #d4df00; font-size: 15px;"></i>
-                     <div style="margin-top: 0px;">{{ post.likes.count }}</div>
-                 </strong></div></div>
-           <img class="card-img-top" src="{{ post.picture.url }}" alt="">
-           <div class="card-body">
-               <h5 class="card-title max"><strong>{{ post.topic }}</strong></h5>
-               <p class="card-text max1">Autor: {{ post.user.first_name }} {{ post.user.last_name }}</p>
-           </div>
-         </div>
-         </a>
-       </div>
-       {% endfor %}
- </div>
+  <div class="row">
+      {% for post in posts %}
+      <div class="col-md-4 col-sm-6 col-12" style="padding: 10px;"> <!-- Dodano padding wokół każdej kolumny dla lepszego odstępu -->
+        <a href="{% url 'story' post.id %}" style="color: black; text-decoration: none;">
+          <div class="card">
+            <div class="bookmark" style="text-align: center; box-shadow: inset 0px 0px 27px -16px rgba(66, 68, 90, 1);">
+                <div style="margin-top: 0px; color: #d4df00;">
+                  <strong><i class="bi bi-star-fill" style="color: #d4df00; font-size: 15px;"></i>
+                    <div style="margin-top: 0px;">{{ post.likes.count }}</div>
+                  </strong>
+                </div>
+            </div>
+            <img class="card-img-top" src="{{ post.picture.url }}" alt="">
+            <div class="card-body">
+                <h5 class="card-title"><strong>{{ post.topic }}</strong></h5>
+                <p class="card-text">Autor: {{ post.user.first_name }} {{ post.user.last_name }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+  </div>
 </div>
-
-
 
 {% endblock %}
